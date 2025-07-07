@@ -1,0 +1,66 @@
+openapi: 3.0.1
+info:
+  title: Translation API
+  description: API que traduce texto entre inglés y español usando LibreTranslate.
+  version: "1.0.0"
+
+servers:
+  - url: http://localhost:8080
+    description: Servidor local
+
+paths:
+  /translate:
+    post:
+      summary: Traduce texto entre dos idiomas.
+      operationId: translateText
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TranslationRequest'
+      responses:
+        '200':
+          description: Traducción realizada con éxito.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TranslationResponse'
+        '400':
+          description: Petición inválida.
+        '429':
+          description: Demasiadas peticiones en poco tiempo.
+        '500':
+          description: Error interno del servidor.
+        '503':
+          description: API de traducción no disponible.
+
+components:
+  schemas:
+    TranslationRequest:
+      type: object
+      required:
+        - userNumber
+        - text
+        - sourceLang
+        - targetLang
+      properties:
+        userNumber:
+          type: number
+          example: 1
+        text:
+          type: string
+          example: Hello, how are you?
+        sourceLang:
+          type: string
+          example: en
+        targetLang:
+          type: string
+          example: es
+
+    TranslationResponse:
+      type: object
+      properties:
+        translatedText:
+          type: string
+          example: Hola, ¿cómo estás?
