@@ -7,7 +7,6 @@ import lombok.Data;
 @Data
 public class TranslatorRequest {
     
-    private final BigInteger userNumber;
     private final String text;
     private final String sourceLang;
     private final String targetLang;

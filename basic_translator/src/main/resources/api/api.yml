@@ -40,14 +40,10 @@ components:
     TranslationRequest:
       type: object
       required:
-        - userNumber
         - text
         - sourceLang
         - targetLang
       properties:
-        userNumber:
-          type: number
-          example: 1
         text:
           type: string
           example: Hello, how are you?

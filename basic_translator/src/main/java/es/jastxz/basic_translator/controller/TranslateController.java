@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import es.jastxz.basic_translator.model.TranslatorRequest;
 import es.jastxz.basic_translator.model.TranslatorResponse;
 import es.jastxz.basic_translator.service.TranslateService;
-import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/translate")
@@ -19,8 +18,8 @@ public class TranslateController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<TranslatorResponse>> translate(@RequestBody TranslatorRequest request) {
-        return service.translate(request.getText(), request.getSourceLang(), request.getTargetLang())
-                .map(ResponseEntity::ok);
+    public ResponseEntity<TranslatorResponse> translate(@RequestBody TranslatorRequest request) {
+        TranslatorResponse response = service.translate(request.getText(), request.getSourceLang(), request.getTargetLang());
+        return ResponseEntity.ok(response);
     }
 }
